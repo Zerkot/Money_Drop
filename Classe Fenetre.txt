@@ -57,6 +57,7 @@ public class Fenetre {
 
             if (option == 0 || option == -1) {
                 // Fermer la fenêtre actuelle et ouvrir une nouvelle fenêtre
+                frame.setVisible(false);
                 frame.dispose();
                 new FenetreResultat();
             }
