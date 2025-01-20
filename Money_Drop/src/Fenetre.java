@@ -1,6 +1,5 @@
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class Fenetre {
 
@@ -31,178 +30,83 @@ public class Fenetre {
 
     private void initialize() {
         frame = new JFrame();
-        frame.setBounds(100, 100, 700, 600);
+        frame.setBounds(100, 100, 700, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
+        // Taille du JFrame
+        int frameWidth = frame.getWidth();
+        int frameHeight = frame.getHeight();
+
+        // Label principal
         JLabel lblNewLabel = new JLabel("Bienvenue dans Money Flop !");
         lblNewLabel.setFont(new Font("Univers Light Condensed", Font.BOLD, 34));
-        lblNewLabel.setBounds(149, 11, 367, 66);
+        int lblWidth = 600;
+        int lblHeight = 50;
+        lblNewLabel.setBounds((frameWidth - lblWidth) / 1, 20, lblWidth, lblHeight);
         frame.getContentPane().add(lblNewLabel);
 
+        // Sous-label
         JLabel lblNewLabel_1 = new JLabel("Veuillez rentrer votre pseudo");
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lblNewLabel_1.setBounds(181, 91, 265, 25);
+        lblWidth = 300;
+        lblHeight = 30;
+        lblNewLabel_1.setBounds((frameWidth - lblWidth) / 2, 100, lblWidth, lblHeight);
         frame.getContentPane().add(lblNewLabel_1);
 
+        // Champ de texte
         textField = new JTextField();
-        textField.setBounds(238, 159, 138, 25);
+        int textFieldWidth = 200;
+        int textFieldHeight = 30;
+        textField.setBounds((frameWidth - textFieldWidth) / 2, 150, textFieldWidth, textFieldHeight);
         frame.getContentPane().add(textField);
         textField.setColumns(10);
 
+        // Bouton "Valider"
         JButton btnNewButton = new JButton("Valider");
-        btnNewButton.setBounds(258, 195, 100, 23);
+        int buttonWidth = 120;
+        int buttonHeight = 30;
+        btnNewButton.setBounds((frameWidth - buttonWidth) / 2, 200, buttonWidth, buttonHeight);
         frame.getContentPane().add(btnNewButton);
 
+        // Panneau de la roue
         WheelPanel wheelPanel = new WheelPanel();
-        wheelPanel.setBounds(150, 250, 400, 400);
+        int wheelPanelSize = 400; // Carré
+        wheelPanel.setBounds((frameWidth - wheelPanelSize) / 2, 250, wheelPanelSize, wheelPanelSize);
         frame.getContentPane().add(wheelPanel);
 
+        // Action sur le bouton
         btnNewButton.addActionListener(e -> {
-            wheelPanel.startSpin();
+            // Vérifier si le champ de texte est vide
+            String pseudo = textField.getText().trim();
+            if (pseudo.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Veuillez entrer un pseudo avant de lancer la roue !", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else {
+                wheelPanel.startSpin();
+            }
         });
     }
 
-    class WheelPanel extends JPanel {
+    // Cette méthode sera appelée lorsque la roue s'arrête
+    public void showResult(String result) {
+        // Afficher un message dans un pop-up avec un bouton OK
+        int option = JOptionPane.showOptionDialog(
+                frame,
+                "La roue s'est arrêtée sur : " + result,
+                "Résultat",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                new Object[] { "OK" }, // bouton OK
+                "OK"
+        );
 
-        public WheelPanel() {
-            timer = new Timer(50, e -> {
-                if (isSpinning) {
-                    long elapsedTime = System.currentTimeMillis() - startTime;
-                    // Calculer la décélération (vitesse diminuant en fonction du temps)
-                    double decelerationFactor = 1 - Math.min(1, (double) elapsedTime / decelerationTime);
-                    angle += 10 * decelerationFactor; // Augmenter la vitesse au début
+        if (option == 0 || option == -1) {  // Vérifie si l'utilisateur clique sur "OK" ou ferme la fenêtre
+            // Fermer la fenêtre actuelle de la roue
+            frame.dispose();
 
-                    repaint();
-
-                    // Si le temps est écoulé, arrêter la roue
-                    if (elapsedTime >= decelerationTime) {
-                        isSpinning = false;
-                        stopWheel();
-                    }
-                }
-            });
-        }
-
-        public void startSpin() {
-            // Initialiser un angle de départ aléatoire
-            angle = (int) (Math.random() * 360);
-
-            // Trouver la valeur initiale avant le lancement
-            int numSections = values.length;
-            int arcAngle = 360 / numSections;
-            
-            int adjustedAngle = (360 - angle) % 360; // Ajustement pour le haut
-            System.out.println(adjustedAngle);
-            System.out.println(angle);
-            int section = adjustedAngle / arcAngle;
-            initialValue = values[section]; // Valeur correspondante
-            if(0 < angle && angle < 45)
-            {
-            	System.out.println("Valeur = "+values[1]);
-            } else if(45 < angle && angle < 90)
-            {
-            	System.out.println("Valeur = " );
-            }
-//            switch ((angle / 45) % 8) {  // (angle / 45) divise l'angle en sections de 45°, % 8 pour qu'il revienne à 0 après 360
-//            case 0:
-//                System.out.println("Valeur = " + values[0]);
-//                break;
-//            case 1:
-//                System.out.println("Valeur = " + values[1]);
-//                break;
-//            case 2:
-//                System.out.println("Valeur = " + values[2]);
-//                break;
-//            case 3:
-//                System.out.println("Valeur = " + values[3]);
-//                break;
-//            case 4:
-//                System.out.println("Valeur = " + values[4]);
-//                break;
-//            case 5:
-//                System.out.println("Valeur = " + values[5]);
-//                break;
-//            case 6:
-//                System.out.println("Valeur = " + values[6]);
-//                break;
-//            case 7:
-//                System.out.println("Valeur = " + values[7]);
-//                break;
-//            default:
-//                System.out.println("Angle hors des bornes");
-//        }
-
-            JOptionPane.showMessageDialog(frame, "Valeur initiale sous l'aiguille : " + initialValue);
-
-            // Lancer la rotation
-            startTime = System.currentTimeMillis(); // Marquer l'heure de début
-            isSpinning = true;
-            timer.start();
-        }
-
-        private void stopWheel() {
-            // Nombre de sections sur la roue
-            int numSections = values.length;
-            int arcAngle = 360 / numSections; // Taille de chaque section en degrés
-
-            // Normaliser l'angle final entre 0 et 360
-            int normalizedAngle = (angle % 360 + 360) % 360;
-
-            // Calculer la section correspondant à l'angle final
-            int section = (normalizedAngle + arcAngle / 2) / arcAngle % numSections;
-
-            // Récupérer la valeur correspondante dans le tableau
-            String value = values[section];
-
-            // Afficher un message avec le résultat final
-            JOptionPane.showMessageDialog(frame, "La roue s'est arrêtée sur : " + value);
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-            int centerX = getWidth() / 2;
-            int centerY = getHeight() / 2;
-            int radius = Math.min(getWidth(), getHeight()) / 2 - 20;
-
-            // Dessiner les sections de la roue
-            int numSections = values.length;
-            int arcAngle = 360 / numSections;
-            for (int i = 0; i < numSections; i++) {
-                g2d.setColor(getColor(i));
-                g2d.fillArc(centerX - radius, centerY - radius, 2 * radius, 2 * radius, angle + i * arcAngle, arcAngle);
-
-                // Dessiner les valeurs
-                g2d.setColor(Color.BLACK);
-                g2d.setFont(new Font("Arial", Font.BOLD, 12));
-                double textAngle = Math.toRadians(-(angle + i * arcAngle + arcAngle / 2)); // Inversion du sens
-                int textX = (int) (centerX + Math.cos(textAngle) * (radius * 0.7));
-                int textY = (int) (centerY + Math.sin(textAngle) * (radius * 0.7));
-
-                // Centrer les nombres
-                FontMetrics fm = g2d.getFontMetrics();
-                int textWidth = fm.stringWidth(values[i]);
-                int textHeight = fm.getHeight();
-
-                g2d.drawString(values[i], textX - textWidth / 2, textY + textHeight / 4);
-            }
-
-            // Dessiner l'aiguille
-            g2d.setColor(Color.BLACK);
-            g2d.fillPolygon(
-                new int[] { centerX, centerX - 10, centerX + 10 },
-                new int[] { centerY - radius, centerY - radius + 20, centerY - radius + 20 },
-                3
-            );
-        }
-
-        private Color getColor(int index) {
-            Color[] colors = { Color.RED, Color.PINK, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.CYAN, Color.MAGENTA, Color.LIGHT_GRAY };
-            return colors[index % colors.length];
+            // Ouvrir une nouvelle fenêtre avec les labels
+            new FenetreResultat(); // Ouvre la nouvelle fenêtre
         }
     }
 }
