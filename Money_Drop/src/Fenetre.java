@@ -1,17 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 
 public class Fenetre {
 
     private JFrame frame;
     private JTextField textField;
-    private Timer timer;
-    private int angle = 0;
-    private final String[] values = { "300 $", "400 $", "500 $", "600 $", "700 $", "800 $", "900 $", "1000 $" };
-    private final int decelerationTime = 10000; // 10 secondes de décélération
-    private long startTime;
-    private boolean isSpinning = false;
-    private String initialValue;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -31,7 +25,7 @@ public class Fenetre {
     private void initialize() {
         frame = new JFrame();
         frame.setBounds(100, 100, 700, 700);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fermer le programme à la fermeture de la fenêtre
         frame.getContentPane().setLayout(null);
 
         // Taille du JFrame
@@ -102,8 +96,8 @@ public class Fenetre {
         );
 
         if (option == 0 || option == -1) {  // Vérifie si l'utilisateur clique sur "OK" ou ferme la fenêtre
-            // Fermer la fenêtre actuelle de la roue
-            frame.dispose();
+            // Simuler la fermeture de la fenêtre de la roue
+            this.frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING)); // Ferme la fenêtre actuelle
 
             // Ouvrir une nouvelle fenêtre avec les labels
             new FenetreResultat(); // Ouvre la nouvelle fenêtre
