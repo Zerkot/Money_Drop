@@ -64,8 +64,8 @@ public class Fenetre {
             if (pseudo.isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "Veuillez entrer un pseudo avant de lancer la roue !", "Erreur", JOptionPane.ERROR_MESSAGE);
             } else {
-                int section = wheelPanel.startSpin();
-                String value = wheelPanel.getValueToDisplay(); // Obtenez la valeur de la roue
+                wheelPanel.startSpin();
+                wheelPanel.getValueToDisplay(); // Obtenez la valeur de la roue
                 //new FenetreResultat(value); // Passer la valeur à FenetreResultat
             }
         });
