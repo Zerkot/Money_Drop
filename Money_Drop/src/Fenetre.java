@@ -1,22 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 
 public class Fenetre {
 
-    private JFrame frame;
+    JFrame frame;
     private JTextField textField;
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                Fenetre window = new Fenetre();
-                window.frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     public Fenetre() {
         initialize();
@@ -69,38 +57,19 @@ public class Fenetre {
         wheelPanel.setBounds((frameWidth - wheelPanelSize) / 2, 250, wheelPanelSize, wheelPanelSize);
         frame.getContentPane().add(wheelPanel);
 
-        // Action sur le bouton
+     // Action sur le bouton
         btnNewButton.addActionListener(e -> {
             // Vérifier si le champ de texte est vide
             String pseudo = textField.getText().trim();
             if (pseudo.isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "Veuillez entrer un pseudo avant de lancer la roue !", "Erreur", JOptionPane.ERROR_MESSAGE);
             } else {
-                wheelPanel.startSpin();
+                int section = wheelPanel.startSpin();
+                String value = wheelPanel.getValueToDisplay(); // Obtenez la valeur de la roue
+                //new FenetreResultat(value); // Passer la valeur à FenetreResultat
             }
         });
-    }
 
-    // Cette méthode sera appelée lorsque la roue s'arrête
-    public void showResult(String result) {
-        // Afficher un message dans un pop-up avec un bouton OK
-        int option = JOptionPane.showOptionDialog(
-                frame,
-                "La roue s'est arrêtée sur : " + result,
-                "Résultat",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.INFORMATION_MESSAGE,
-                null,
-                new Object[] { "OK" }, // bouton OK
-                "OK"
-        );
-
-        if (option == 0 || option == -1) {  // Vérifie si l'utilisateur clique sur "OK" ou ferme la fenêtre
-            // Simuler la fermeture de la fenêtre de la roue
-            this.frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING)); // Ferme la fenêtre actuelle
-
-            // Ouvrir une nouvelle fenêtre avec les labels
-            new FenetreResultat(); // Ouvre la nouvelle fenêtre
-        }
     }
 }
+

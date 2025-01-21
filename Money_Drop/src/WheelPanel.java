@@ -75,8 +75,25 @@ public class WheelPanel extends JPanel {
     }
 
     private void stopWheel() {
-        // Afficher un message avec le résultat
-    	JOptionPane.showMessageDialog(this, "La roue s'est arrêtée sur : " + valueToDisplay);
+    	// Pop-up unique avec le résultat et une option pour continuer
+        int option = JOptionPane.showOptionDialog(
+                this,
+                "La roue s'est arrêtée sur : " + valueToDisplay,
+                "Résultat",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                new Object[]{"OK"},
+                "OK"
+        );
+    	// Passer à la fenêtre des résultats si "OK" ou fermeture
+        if (option == 0 || option == -1) {
+            JFrame topLevelFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            if (topLevelFrame != null) {
+                topLevelFrame.dispose();
+            }
+            new FenetreResultat(valueToDisplay);
+        }
     }
 
     @Override
@@ -118,6 +135,9 @@ public class WheelPanel extends JPanel {
             new int[] { centerY - radius, centerY - radius + 20, centerY - radius + 20 },
             3
         );
+    }
+    public String getValueToDisplay() {
+        return valueToDisplay;
     }
 
     private Color getColor(int index) {
