@@ -1,49 +1,48 @@
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.*;
-import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
+constant filepath = "C:\tktpelooo\Money_Drop\Money_Drop";
 public class QuestionLoader {
 
-    public static List<Question> loadQuestionsFromXML(String filePath) {
+    public static List<Question> loadQuestionsFromJSON(String filePath) {
         List<Question> questions = new ArrayList<>();
-        
-        try {
-            File xmlFile = new File(filePath);
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(xmlFile);
-            
-            NodeList questionNodes = document.getElementsByTagName("question");
 
-            for (int i = 0; i < questionNodes.getLength(); i++) {
-                Node questionNode = questionNodes.item(i);
+        JSONParser jsonParser = new JSONParser();
 
-                if (questionNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element questionElement = (Element) questionNode;
+        try (FileReader reader = new FileReader(filePath)) {
+            // Parse the entire JSON file
+            Object obj = jsonParser.parse(reader);
 
-                    // Extraire le texte de la question
-                    String questionText = questionElement.getElementsByTagName("texte").item(0).getTextContent();
+            // Get the "quizz" object and then extract the specific levels
+            JSONObject quizJson = (JSONObject) ((JSONObject) obj).get("quizz");
 
-                    // Extraire les réponses
-                    NodeList responseNodes = questionElement.getElementsByTagName("réponse");
-                    String[] responses = new String[responseNodes.getLength()];
-                    int correctAnswerIndex = -1;
-                    
-                    for (int j = 0; j < responseNodes.getLength(); j++) {
-                        Element responseElement = (Element) responseNodes.item(j);
-                        responses[j] = responseElement.getTextContent();
-                        if (responseElement.getAttribute("correct").equals("true")) {
-                            correctAnswerIndex = j;
-                        }
+            // Process each level (e.g., débutant, confirmé, expert)
+            for (Object level : quizJson.keySet()) {
+                JSONArray questionsJsonArray = (JSONArray) quizJson.get(level);
+                
+                for (Object questionObject : questionsJsonArray) {
+                    JSONObject questionJson = (JSONObject) questionObject;
+
+                    // Extract question details
+                    long id = (long) questionJson.get("id");
+                    String questionText = (String) questionJson.get("question");
+                    JSONArray propositionsJsonArray = (JSONArray) questionJson.get("propositions");
+                    String[] propositions = new String[propositionsJsonArray.size()];
+                    for (int i = 0; i < propositionsJsonArray.size(); i++) {
+                        propositions[i] = (String) propositionsJsonArray.get(i);
                     }
+                    String correctAnswer = (String) questionJson.get("réponse");
+                    String anecdote = (String) questionJson.get("anecdote");
 
-                    // Ajouter la question à la liste
-                    questions.add(new Question(questionText, responses, correctAnswerIndex));
+                    // Add the question to the list
+                    questions.add(new Question(id, questionText, propositions, correctAnswer, anecdote));
                 }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

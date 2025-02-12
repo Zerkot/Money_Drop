@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class WheelPanel extends JPanel {
     private Timer timer;
@@ -92,7 +93,7 @@ public class WheelPanel extends JPanel {
             if (topLevelFrame != null) {
                 topLevelFrame.dispose();
             }
-            new FenetreResultat(valueToDisplay);
+            new FenetreResultat(valueToDisplay, new ArrayList<Question>());
         }
     }
 

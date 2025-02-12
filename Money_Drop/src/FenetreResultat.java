@@ -4,11 +4,12 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class FenetreResultat {
     private int questionNumber = 1;
     private int totalBalance; // Solde initialisé via le constructeur
-    private int correctAnswerIndex = 2; // Exemple de bonne réponse (index 0-based)
+    private int correctAnswerIndex; // Index de la bonne réponse, à calculer en fonction des propositions
     private Timer timer;
     private JLabel lblQuestion;
     private JLabel lblBalance;
@@ -16,10 +17,12 @@ public class FenetreResultat {
     private JButton btnValidate;
     private JLabel lblTimer;
     private JLabel lblTitle;
-    private java.util.List<Question> questions;
+    private List<Question> questions; // Liste des questions
     private int currentQuestionIndex = 0;
 
-    public FenetreResultat(String valueFromWheel) {
+    public FenetreResultat(String valueFromWheel, List<Question> questions) {
+        this.questions = questions;
+        
         // Initialiser le solde avec la valeur de la roue
         totalBalance = Integer.parseInt(valueFromWheel.replace(" $", "").trim());
 
@@ -72,7 +75,7 @@ public class FenetreResultat {
         frameResult.getContentPane().add(lblTitle);
 
         // Question
-        lblQuestion = new JLabel("Quelle est la capitale de la France ?", SwingConstants.CENTER);
+        lblQuestion = new JLabel(questions.get(currentQuestionIndex).getQuestion(), SwingConstants.CENTER);
         lblQuestion.setFont(new Font("Arial", Font.PLAIN, 18));
         frameResult.getContentPane().add(lblQuestion);
 
@@ -81,8 +84,11 @@ public class FenetreResultat {
         answersPanel.setLayout(new GridLayout(2, 4, 10, 10));
 
         wagerFields = new JTextField[4];
+        String[] propositions = questions.get(currentQuestionIndex).getPropositions();
+        correctAnswerIndex = getCorrectAnswerIndex(propositions, questions.get(currentQuestionIndex).getCorrectAnswer());
+
         for (int i = 0; i < 4; i++) {
-            JLabel btnAnswer = new JLabel("Réponse " + (i + 1));
+            JLabel btnAnswer = new JLabel(propositions[i]);
 
             JTextField wagerField = new JTextField();
             wagerFields[i] = wagerField;
@@ -131,7 +137,7 @@ public class FenetreResultat {
                 // Logique pour valider la réponse et mettre à jour le solde
                 validateWagers();
                 questionNumber++;
-                if (questionNumber <= 10) {
+                if (questionNumber <= questions.size()) {
                     updateQuestion();
                     resetTimer();
                 } else {
@@ -145,6 +151,15 @@ public class FenetreResultat {
         startTimer();
 
         frameResult.setVisible(true);
+    }
+
+    private int getCorrectAnswerIndex(String[] propositions, String correctAnswer) {
+        for (int i = 0; i < propositions.length; i++) {
+            if (propositions[i].equals(correctAnswer)) {
+                return i;
+            }
+        }
+        return -1; // Si la bonne réponse n'est pas trouvée
     }
 
     private void validateWagers() {
@@ -194,7 +209,7 @@ public class FenetreResultat {
         
         // Passer à la question suivante
         questionNumber++;
-        if (questionNumber <= 10) {
+        if (questionNumber <= questions.size()) {
             updateQuestion();
             resetTimer();  // Redémarrer le timer pour la nouvelle question
         } else {
@@ -203,42 +218,48 @@ public class FenetreResultat {
             System.exit(0);
         }
     }
-    
+
     private void checkWagers() {
-        int totalWagered = 0;
-        try {
-            for (JTextField field : wagerFields) {
-                String text = field.getText().trim();
-                if (!text.isEmpty()) {
-                    totalWagered += Integer.parseInt(text);
+        boolean allFieldsValid = true;
+
+        // Vérifier que toutes les mises sont valides et activer/désactiver le bouton de validation
+        for (int i = 0; i < wagerFields.length; i++) {
+            String text = wagerFields[i].getText().trim();
+            if (!text.isEmpty()) {
+                try {
+                    // Vérifier que la mise est un nombre entier valide
+                    int wager = Integer.parseInt(text);
+                    if (wager < 0 || wager > totalBalance) {
+                        allFieldsValid = false;  // Si la mise est invalide, désactiver le bouton
+                    }
+                } catch (NumberFormatException e) {
+                    allFieldsValid = false;  // Si la mise n'est pas un nombre valide, désactiver le bouton
                 }
             }
-        } catch (NumberFormatException e) {
-            // Si un champ contient une valeur invalide, désactiver le bouton
-            btnValidate.setEnabled(false);
-            return;
         }
 
-        // Activer le bouton si le total misé est égal au solde
-        btnValidate.setEnabled(totalWagered == totalBalance);
+        // Activer/désactiver le bouton de validation en fonction de l'état des mises
+        btnValidate.setEnabled(allFieldsValid);
     }
-
-
+    
     private void updateQuestion() {
         // Mettre à jour la question
-        lblQuestion.setText("Nouvelle question (par exemple) ?");
+        Question currentQuestion = questions.get(currentQuestionIndex);
+        lblQuestion.setText(currentQuestion.getQuestion());
         lblTitle.setText("Question N°" + questionNumber);
         lblBalance.setText("Solde: " + totalBalance + " $");
 
-        // Réinitialiser les champs de mise
-        for (JTextField field : wagerFields) {
-            field.setText("");
+        // Mettre à jour les propositions
+        String[] propositions = currentQuestion.getPropositions();
+        correctAnswerIndex = getCorrectAnswerIndex(propositions, currentQuestion.getCorrectAnswer());
+
+        for (int i = 0; i < 4; i++) {
+            wagerFields[i].setText("");  // Réinitialiser les champs de mise
         }
 
         // Vérifier l'état des mises après réinitialisation
         checkWagers();
     }
-
 
     private void startTimer() {
         // Timer de 60 secondes
@@ -257,7 +278,7 @@ public class FenetreResultat {
                     validateWagers();
 
                     // Passer à la question suivante si nécessaire
-                    if (questionNumber <= 10 && totalBalance > 0) {
+                    if (questionNumber <= questions.size() && totalBalance > 0) {
                         updateQuestion();
                         resetTimer();  // Redémarrer le timer pour la nouvelle question
                     } else {
@@ -269,7 +290,6 @@ public class FenetreResultat {
         });
         timer.start();
     }
-
 
     private void resetTimer() {
         if (timer != null && timer.isRunning()) {
