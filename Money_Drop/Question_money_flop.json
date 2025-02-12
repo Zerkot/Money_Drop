@@ -1,0 +1,370 @@
+"quizz": {
+    "fr": {
+      "débutant": [
+      {
+        "id": 1,
+        "question": "Dans quelle ville Bernadette Soubirous a-t-elle vu une apparition de la Vierge ?",
+        "propositions": [
+          "Lourdes",
+          "Lyon",
+          "Lille",
+          "Lisieux"
+        ],
+        "réponse": "Lourdes",
+        "anecdote": "Au cours d'une de ces apparitions, elle a creusé le sol pour y prendre de l'eau, réputée par la suite source de guérisons."
+      },
+      {
+        "id": 2,
+        "question": "Quel Grand Prix officiel de F1 ne possède pourtant pas la distance réglementaire ?",
+        "propositions": [
+          "Silverstone",
+          "Interlagos",
+          "Suzuka",
+          "Monaco"
+        ],
+        "réponse": "Monaco",
+        "anecdote": "Le tracé du circuit de Monaco est le plus lent et reste réputé comme le plus difficile du championnat du monde de Formule 1."
+      },
+      {
+        "id": 3,
+        "question": "Quelles plantes potagères vivaces formant une rosette sont cultivées pour leurs têtes ?",
+        "propositions": [
+          "Artichauts",
+          "Pissenlits",
+          "Choux",
+          "Topinambours"
+        ],
+        "réponse": "Artichauts",
+        "anecdote": "Les effets bénéfiques du légume-fleur sur le foie, lui-même chardon domestiqué et cultivé, sont connus depuis longtemps."
+      },
+      {
+        "id": 4,
+        "question": "Quel jeu de société consiste à découvrir un code de quatre couleurs ?",
+        "propositions": [
+          "Meccano",
+          "Mah-jong",
+          "Mastermind",
+          "Monopoly"
+        ],
+        "réponse": "Mastermind",
+        "anecdote": "Ce jeu de déduction, inventé par Mordecai Meirowitz, peut être complexifié en autorisant plusieurs pions de la même couleur."
+      },
+      {
+        "id": 5,
+        "question": "Quel spécialiste paramédical étudie la valeur nutritive des aliments ?",
+        "propositions": [
+          "Diététicien",
+          "Phytothérapiste",
+          "Dermatologue",
+          "Nutritionniste"
+        ],
+        "réponse": "Diététicien",
+        "anecdote": "Cet expert en nutrition et en alimentation a pour objectif principal d'équilibrer la pratique alimentaire de ses patients."
+      },
+      {
+        "id": 6,
+        "question": "De quel ingrédient principal est composée une bouillabaisse ?",
+        "propositions": [
+          "Poisson",
+          "Phoque",
+          "Pingouin",
+          "Porc"
+        ],
+        "réponse": "Poisson",
+        "anecdote": "Cette spécialité culinaire traditionnelle et institutionnelle de la cuisine de la Provence est originaire de la Grèce antique."
+      },
+      {
+        "id": 7,
+        "question": "Quelle plante sert traditionnellement à fleurir les tombes à la Toussaint ?",
+        "propositions": [
+          "Camélia",
+          "Crocus",
+          "Cosmos",
+          "Chrysanthème"
+        ],
+        "réponse": "Chrysanthème",
+        "anecdote": "Les plus connus des chrysanthèmes sont les chrysanthèmes d'automne, ou chrysanthèmes des fleuristes (pomponette)."
+      },
+      {
+        "id": 8,
+        "question": "Quel est le prénom du valet de chambre du Capitaine Haddock ?",
+        "propositions": [
+          "Napoléon",
+          "Narcisse",
+          "Nestor",
+          "Nelson"
+        ],
+        "réponse": "Nestor",
+        "anecdote": "Avec son allure très soignée, portant une livrée, Nestor est apparu pour la première fois comme domestique des frères Loiseau."
+      },
+      {
+        "id": 9,
+        "question": "Quel est le nom du cheval de Yakari, enfant sioux de la tribu lakota ?",
+        "propositions": [
+          "Joly Jumper",
+          "Tornado",
+          "Petit Tonnerre",
+          "Petit Éclair"
+        ],
+        "réponse": "Petit Tonnerre",
+        "anecdote": "Yakari a la particularité de pouvoir comprendre et parler la langue des animaux, don conféré par son ami et totem, Grand Aigle."
+      },
+      {
+        "id": 10,
+        "question": "Qui les Le Quesnoy rencontrent-ils dans « La vie est un long fleuve tranquille » ?",
+        "propositions": [
+          "Guarana",
+          "Groseille",
+          "Goyave",
+          "Grenade"
+        ],
+        "réponse": "Groseille",
+        "anecdote": "Le film, réalisé par Étienne Chatiliez et sorti en 1988, a été tourné dans le Nord à Roubaix, Tourcoing et Villeneuve-d'Ascq."
+      }
+    ],
+    "confirmé": [
+      {
+        "id": 11,
+        "question": "Quelle ville du sud-est de la France est surnommée la Cité des Princes ?",
+        "propositions": [
+          "Orroir",
+          "Orly",
+          "Orléans",
+          "Orange"
+        ],
+        "réponse": "Orange",
+        "anecdote": "Selon la température moyenne à l'année, la ville d'Orange, nichée au coeur d'une région agricole, est la plus chaude de France."
+      },
+      {
+        "id": 12,
+        "question": "Quel acteur donne la réplique à Keanu Reeves dans le film « Speed » ?",
+        "propositions": [
+          "Nicolas Cage",
+          "Val Kilmer",
+          "Dennis Hopper",
+          "Harvey Keittel"
+        ],
+        "réponse": "Dennis Hopper",
+        "anecdote": "Sorti sur les écrans en 1994, « Speed » est souvent considéré comme étant le film qui a véritablement révélé Sandra Bullock."
+      },
+      {
+        "id": 13,
+        "question": "Quel est le véritable nom du musicien américain Moby ?",
+        "propositions": [
+          "Michael Hornsby",
+          "Moriss Byrman",
+          "Richard Hall",
+          "Carl Collins"
+        ],
+        "réponse": "Richard Hall",
+        "anecdote": "Moby est un auteur-compositeur-interprète, chanteur, musicien, producteur, réalisateur artistique et photographe américain."
+      },
+      {
+        "id": 14,
+        "question": "Quel animal de la forêt tropicale humide possède une espèce appelée basilic ?",
+        "propositions": [
+          "Koala",
+          "Tortue",
+          "Lézard",
+          "Caméléon"
+        ],
+        "réponse": "Lézard",
+        "anecdote": "Il est appelé Lézard Jésus à cause de sa capacité à courir sur l'eau sur de courtes distances avant de s'immerger et de nager."
+      },
+      {
+        "id": 15,
+        "question": "Quelle actrice était la partenaire de Philippe Noiret dans le film « Le vieux fusil » ?",
+        "propositions": [
+          "Bernadette Lafont",
+          "Marie-France Pisier",
+          "Romy Schneider",
+          "Simone Signoret"
+        ],
+        "réponse": "Romy Schneider",
+        "anecdote": "Ce drame germano-français réalisé par Robert Enrico a attiré 3 400 000 spectateurs dès sa sortie, un record pour l'époque."
+      },
+      {
+        "id": 16,
+        "question": "Quel est le prénom de la femme du chef gaulois Abraracourcix ?",
+        "propositions": [
+          "Bellemine",
+          "Hermine",
+          "Bonemine",
+          "Lisamine"
+        ],
+        "réponse": "Bonemine",
+        "anecdote": "Plus vieux qu'Astérix et Obélix, Abraracourcix est le chef du village dans la bande dessinée à succès « Astérix le Gaulois »."
+      },
+      {
+        "id": 17,
+        "question": "Quel terme est synonyme de célérité dans le milieu de la physique ?",
+        "propositions": [
+          "Danger",
+          "Vitesse",
+          "Puissance",
+          "Discrétion"
+        ],
+        "réponse": "Vitesse",
+        "anecdote": "Cette notion est employée pour décrire en optique la vitesse de propagation d'une onde électromagnétique dans le vide."
+      },
+      {
+        "id": 18,
+        "question": "Quel compositeur a reçu un Oscar pour la BO du film « Les Chariots de feu » ?",
+        "propositions": [
+          "Villa-Lobos",
+          "Vitali",
+          "Vangelis",
+          "Vaughan"
+        ],
+        "réponse": "Vangelis",
+        "anecdote": "Le film s'inspire librement de l'histoire de deux athlètes britanniques concourant aux JO de 1924, Harold Abrahams et Eric Liddell."
+      },
+      {
+        "id": 19,
+        "question": "Quel animal est Panikar, le meilleur ami de Dare Dare Motus ?",
+        "propositions": [
+          "Taupe",
+          "Souris",
+          "Rat",
+          "Oiseau"
+        ],
+        "réponse": "Taupe",
+        "anecdote": "Dare Dare Motus est une souris agent secret qui mène les dangereuses missions que lui confie son supérieur, le colonel K."
+      },
+      {
+        "id": 20,
+        "question": "Quelle danse et art martial afro-brésilien simule un combat ?",
+        "propositions": [
+          "Prado",
+          "Mambo",
+          "Capoeira",
+          "Fado"
+        ],
+        "réponse": "Capoeira",
+        "anecdote": "La capoeira puiserait ses racines dans les techniques de combat des peuples africains du temps de l'esclavage au Brésil."
+      }
+    ],
+    "expert": [
+      {
+        "id": 21,
+        "question": "Sous quel nom connaît-on mieux le chanteur Hervé Forneri ?",
+        "propositions": [
+          "Dick Rivers",
+          "Nino Ferrer",
+          "Alain Chamfort",
+          "Hervé Vilard"
+        ],
+        "réponse": "Dick Rivers",
+        "anecdote": "Natala, la fille adoptive de Dick Rivers, dont la mère est Monique dite Mouche, a vécu avec le réalisateur George Lucas."
+      },
+      {
+        "id": 22,
+        "question": "Comment qualifie-t-on les pronoms tels que rien ou chacun ?",
+        "propositions": [
+          "Insécables",
+          "Indéfinis",
+          "Impersonnels",
+          "Inopérables"
+        ],
+        "réponse": "Indéfinis",
+        "anecdote": "Le pronom est un mot-outil variable dont le rôle principal est de se substituer à un élément quelconque, linguistique ou non."
+      },
+      {
+        "id": 23,
+        "question": "Quel nom portent les saillies filiformes qui tapissent notre intestin grêle ?",
+        "propositions": [
+          "Filandre",
+          "Villosité",
+          "Muqueuse",
+          "Anse"
+        ],
+        "réponse": "Villosité",
+        "anecdote": "Les villosités intestinales permettent l'amplification des processus d'absorption par augmentation de la surface intestinale."
+      },
+      {
+        "id": 24,
+        "question": "De quel état arabe la ville de Manama est-elle la capitale ?",
+        "propositions": [
+          "Yémen",
+          "Qatar",
+          "Syrie",
+          "Bahreïn"
+        ],
+        "réponse": "Bahreïn",
+        "anecdote": "Le Bahreïn, en forme longue le royaume de Bahreïn, est l'un des pays les plus actifs dans le domaine de l'art contemporain."
+      },
+      {
+        "id": 25,
+        "question": "Quel fruit fournit une essence utilisée pour fabriquer les eaux de Cologne ?",
+        "propositions": [
+          "Banane",
+          "Bergamote",
+          "Bleuet",
+          "Brugnon"
+        ],
+        "réponse": "Bergamote",
+        "anecdote": "Principalement cultivée en Calabre (Italie), la bergamote ressemble à une petite orange à la chair verdâtre et à la peau lisse ou rugueuse."
+      },
+      {
+        "id": 26,
+        "question": "Quelle est la marque de whisky préférée du Capitaine Haddock ?",
+        "propositions": [
+          "Loch Ness",
+          "Loch Mahouss",
+          "Loch Lomond",
+          "Loch Fields"
+        ],
+        "réponse": "Loch Lomond",
+        "anecdote": "Aujourd'hui, cette marque de whisky qui existe réellement est plus connue par les tintinophiles que par les amateurs de cet alcool."
+      },
+      {
+        "id": 27,
+        "question": "Quelle abbaye renfermant une communauté idéale est présentée dans « Gargantua » ?",
+        "propositions": [
+          "Fille-Dieu",
+          "Cluny",
+          "Thélème",
+          "Conques"
+        ],
+        "réponse": "Thélème",
+        "anecdote": "Deuxième roman de François Rabelais, « Gargantua » a été écrit après « Pantagruel », bien qu'il soit le père de Pantagruel."
+      },
+      {
+        "id": 28,
+        "question": "Quel adjectif qualifie un animal qui vit dans la vase ?",
+        "propositions": [
+          "Aquacole",
+          "Ethanocole",
+          "Limicole",
+          "Piscicole"
+        ],
+        "réponse": "Limicole",
+        "anecdote": "On compte environ 216 espèces de limicoles, souvent au long bec leur permettant d'aller chercher des invertébrés dans la vase."
+      },
+      {
+        "id": 29,
+        "question": "Jean-Paul Sartre était l'arrière cousin de quel célèbre docteur ?",
+        "propositions": [
+          "Schweitzer",
+          "Lavéran",
+          "Gachet",
+          "Petiot"
+        ],
+        "réponse": "Schweitzer",
+        "anecdote": "Jean-Paul Sartre était philosophe, dramaturge, romancier et nouvelliste, également connu pour ses engagements politiques."
+      },
+      {
+        "id": 30,
+        "question": "Comment appelle-t-on, dans une division, le nombre divisé par un autre ?",
+        "propositions": [
+          "Diviseur",
+          "Dividende",
+          "Dizaine",
+          "Dixième"
+        ],
+        "réponse": "Dividende",
+        "anecdote": "La division euclidienne s'étend également à d'autres anneaux, comme celui des polynômes, dits anneaux euclidiens."
+      }
+    ]
+  }
+}

@@ -26,6 +26,8 @@ public class FenetreResultat {
         // Fenêtre d'introduction avant de commencer à jouer
         JFrame introFrame = new JFrame("Introduction");
         introFrame.setBounds(100, 100, 900, 500);
+        introFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        introFrame.setVisible(true);
         introFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         introFrame.getContentPane().setLayout(new GridLayout(3, 1));
 
@@ -59,6 +61,8 @@ public class FenetreResultat {
         // Fenêtre pour les questions
         JFrame frameResult = new JFrame("Money Flop");
         frameResult.setBounds(100, 100, 600, 500);
+        frameResult.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameResult.setVisible(true);
         frameResult.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameResult.getContentPane().setLayout(new GridLayout(8, 1));
         

@@ -12,26 +12,29 @@ public class Fenetre {
 
     private void initialize() {
         frame = new JFrame();
-        frame.setBounds(100, 100, 700, 700);
+        frame.setBounds(100, 100, 1920, 1920);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fermer le programme à la fermeture de la fenêtre
         frame.getContentPane().setLayout(null);
 
         // Taille du JFrame
         int frameWidth = frame.getWidth();
         int frameHeight = frame.getHeight();
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setVisible(true);
 
         // Label principal
         JLabel lblNewLabel = new JLabel("Bienvenue dans Money Flop !");
         lblNewLabel.setFont(new Font("Univers Light Condensed", Font.BOLD, 34));
-        int lblWidth = 600;
-        int lblHeight = 50;
-        lblNewLabel.setBounds((frameWidth - lblWidth) / 1, 20, lblWidth, lblHeight);
+        int lblWidth = 355;
+        int lblHeight = 30;
+        lblNewLabel.setBounds((frameWidth - lblWidth) / 2, 20, lblWidth, lblHeight);
+        //lblNewLabel.setBounds((frameWidth - lblWidth) / 1, 20, lblWidth, lblHeight);
         frame.getContentPane().add(lblNewLabel);
 
         // Sous-label
         JLabel lblNewLabel_1 = new JLabel("Veuillez rentrer votre pseudo");
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lblWidth = 300;
+        lblWidth = 260;
         lblHeight = 30;
         lblNewLabel_1.setBounds((frameWidth - lblWidth) / 2, 100, lblWidth, lblHeight);
         frame.getContentPane().add(lblNewLabel_1);
@@ -65,6 +68,7 @@ public class Fenetre {
                 JOptionPane.showMessageDialog(frame, "Veuillez entrer un pseudo avant de lancer la roue !", "Erreur", JOptionPane.ERROR_MESSAGE);
             } else {
                 wheelPanel.startSpin();
+                btnNewButton.setEnabled(false);
                 wheelPanel.getValueToDisplay(); // Obtenez la valeur de la roue
                 //new FenetreResultat(value); // Passer la valeur à FenetreResultat
             }
