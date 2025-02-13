@@ -67,8 +67,10 @@ public class QuestionLoader {
         return questions;
     }
 
-    //public static void main(String[] args) {
-        
-      //  }
-    //}
+    public static void main(String[] args) {
+        List<Question> questions = loadQuestionsFromJSON(FILE_PATH);
+        for (Question q : questions) {
+            System.out.println(q);
+        }
+    }
 }

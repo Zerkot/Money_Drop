@@ -22,7 +22,7 @@ public class FenetreResultat {
 
     public FenetreResultat(String valueFromWheel) {
         // Charger les questions depuis le fichier JSON
-        questions = QuestionLoader.loadQuestionsFromJSON("C:/projetjava/Money_Drop/Money_Drop/Question_money_flop.json");
+        questions = QuestionLoader.loadQuestionsFromJSON("C:/projetjava/Money_Drop/Money_Drop/question_test.json");
         
         // Vérifier si les questions sont bien chargées
         System.out.println("Questions chargées : ");
