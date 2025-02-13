@@ -4,6 +4,9 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Random;
 import java.util.List;
 
 public class FenetreResultat {
@@ -18,17 +21,30 @@ public class FenetreResultat {
     private JLabel lblTimer;
     private JLabel lblTitle;
     private List<Question> questions; // Liste des questions
-    private int currentQuestionIndex = 0;
-
+    private int currentQuestionIndex;
+    private LinkedList<Integer> availableIndices = new LinkedList<>();
+    private JLabel[] answerLabels; // Ajouter ceci en tant qu'attribut de la classe
+    
     public FenetreResultat(String valueFromWheel) {
         // Charger les questions depuis le fichier JSON
         questions = QuestionLoader.loadQuestionsFromJSON("Question_money_flop.json");
         
-        // Vérifier si les questions sont bien chargées
-        System.out.println("Questions chargées : ");
-        for (Question q : questions) {
-            System.out.println(q.getQuestion());
+     // Initialiser la liste des indices
+        for (int i = 0; i < questions.size(); i++) {
+            availableIndices.add(i);
         }
+        
+        // Mélanger la liste pour l'aléatoire
+        Collections.shuffle(availableIndices);
+        //System.out.println(availableIndices);
+        // Sélectionner le premier index aléatoirement
+        currentQuestionIndex = availableIndices.poll();
+        //System.out.println(currentQuestionIndex);
+        // Vérifier si les questions sont bien chargées
+//        System.out.println("Questions chargées : ");
+//        for (Question q : questions) {
+//            System.out.println(q);
+//        }
         
         // Initialiser le solde avec la valeur de la roue
         totalBalance = Integer.parseInt(valueFromWheel.replace(" $", "").trim());
@@ -87,7 +103,7 @@ public class FenetreResultat {
 
         
         // Titre de la question
-        lblTitle = new JLabel("Question N°1", SwingConstants.CENTER);
+        lblTitle = new JLabel("Question N°1" , SwingConstants.CENTER);
         lblTitle.setFont(new Font("Arial", Font.BOLD, 24));
         frameResult.getContentPane().add(lblTitle);
 
@@ -104,32 +120,33 @@ public class FenetreResultat {
         String[] propositions = questions.get(currentQuestionIndex).getPropositions();
         correctAnswerIndex = getCorrectAnswerIndex(propositions, questions.get(currentQuestionIndex).getCorrectAnswer());
 
+     // Initialiser le tableau des labels de réponses
+        answerLabels = new JLabel[4];
+
         for (int i = 0; i < 4; i++) {
-            JLabel btnAnswer = new JLabel(propositions[i]);
+            answerLabels[i] = new JLabel(propositions[i], SwingConstants.CENTER);
+            wagerFields[i] = new JTextField();
 
-            JTextField wagerField = new JTextField();
-            wagerFields[i] = wagerField;
-
-            // Ajout du DocumentListener pour surveiller les changements dans chaque champ de mise
-            wagerField.getDocument().addDocumentListener(new DocumentListener() {
+            // Ajout du DocumentListener pour surveiller les mises
+            wagerFields[i].getDocument().addDocumentListener(new DocumentListener() {
                 @Override
                 public void insertUpdate(DocumentEvent e) {
-                    checkWagers();  // Vérifier les mises après chaque modification
+                    checkWagers();
                 }
 
                 @Override
                 public void removeUpdate(DocumentEvent e) {
-                    checkWagers();  // Vérifier les mises après chaque suppression
+                    checkWagers();
                 }
 
                 @Override
                 public void changedUpdate(DocumentEvent e) {
-                    checkWagers();  // Vérifier les mises après un changement
+                    checkWagers();
                 }
             });
 
-            answersPanel.add(btnAnswer);
-            answersPanel.add(wagerField);
+            answersPanel.add(answerLabels[i]);
+            answersPanel.add(wagerFields[i]);
         }
         frameResult.getContentPane().add(answersPanel);
 
@@ -154,6 +171,7 @@ public class FenetreResultat {
                 // Logique pour valider la réponse et mettre à jour le solde
                 validateWagers();
                 questionNumber++;
+                System.out.println(questionNumber);
                 if (questionNumber <= questions.size()) {
                     updateQuestion();
                     resetTimer();
@@ -214,7 +232,7 @@ public class FenetreResultat {
             JOptionPane.showMessageDialog(null, "Vous avez perdu ! Vous n'avez rien misé sur la bonne réponse.");
             totalBalance = 0;
         } else {
-            JOptionPane.showMessageDialog(null, "Bravo ! Votre mise sur la bonne réponse a été doublée : " + wagerOnCorrectAnswer + " x 2 = " + newBalance + " $");
+            JOptionPane.showMessageDialog(null, "Bravo ! La bonne réponse était : " + questions.get(currentQuestionIndex).getCorrectAnswer() + " Votre mise sur la bonne réponse a été doublée : " + wagerOnCorrectAnswer + " x 2 = " + newBalance + " $");
             totalBalance = newBalance;
         }
 
@@ -223,60 +241,73 @@ public class FenetreResultat {
             JOptionPane.showMessageDialog(null, "Vous avez perdu tout votre solde. Fin du jeu !");
             System.exit(0);
         }
-        
-        // Passer à la question suivante
-        questionNumber++;
-        if (questionNumber <= questions.size()) {
+
+        if (questionNumber <= 10) { // Limite à 10 questions
             updateQuestion();
-            resetTimer();  // Redémarrer le timer pour la nouvelle question
+            resetTimer();
         } else {
-        	timer.stop();
-            JOptionPane.showMessageDialog(null, "Vous avez terminé le jeu ! Solde final: " + totalBalance);
+            JOptionPane.showMessageDialog(null, "Vous avez terminé le jeu après 10 questions ! Solde final: " + totalBalance);
             System.exit(0);
         }
+
+        
     }
 
     private void checkWagers() {
+        int totalWagered = 0;
         boolean allFieldsValid = true;
 
-        // Vérifier que toutes les mises sont valides et activer/désactiver le bouton de validation
-        for (int i = 0; i < wagerFields.length; i++) {
-            String text = wagerFields[i].getText().trim();
+        for (JTextField field : wagerFields) {
+            String text = field.getText().trim();
             if (!text.isEmpty()) {
                 try {
-                    // Vérifier que la mise est un nombre entier valide
                     int wager = Integer.parseInt(text);
                     if (wager < 0 || wager > totalBalance) {
-                        allFieldsValid = false;  // Si la mise est invalide, désactiver le bouton
+                        allFieldsValid = false; // La mise doit être dans l'intervalle valide
                     }
+                    totalWagered += wager;
                 } catch (NumberFormatException e) {
-                    allFieldsValid = false;  // Si la mise n'est pas un nombre valide, désactiver le bouton
+                    allFieldsValid = false; // Vérifier que c'est bien un nombre
                 }
             }
         }
 
-        // Activer/désactiver le bouton de validation en fonction de l'état des mises
-        btnValidate.setEnabled(allFieldsValid);
+        // Activer le bouton seulement si la somme des mises est égale au solde
+        btnValidate.setEnabled(allFieldsValid && totalWagered == totalBalance);
     }
     
     private void updateQuestion() {
+        if (!availableIndices.isEmpty()) {
+            currentQuestionIndex = availableIndices.poll(); // Prend et retire l'élément
+        } else {
+            JOptionPane.showMessageDialog(null, "Toutes les questions ont été posées !");
+            System.exit(0); // Quitter quand toutes les questions ont été posées
+        }
+
         // Mettre à jour la question
         Question currentQuestion = questions.get(currentQuestionIndex);
         lblQuestion.setText(currentQuestion.getQuestion());
         lblTitle.setText("Question N°" + questionNumber);
         lblBalance.setText("Solde: " + totalBalance + " $");
 
-        // Mettre à jour les propositions
+     // Mettre à jour les propositions de réponses
         String[] propositions = currentQuestion.getPropositions();
         correctAnswerIndex = getCorrectAnswerIndex(propositions, currentQuestion.getCorrectAnswer());
 
         for (int i = 0; i < 4; i++) {
-            wagerFields[i].setText("");  // Réinitialiser les champs de mise
+            answerLabels[i].setText(propositions[i]); // Mise à jour des labels des réponses
+            wagerFields[i].setText(""); // Réinitialiser les champs de mise
+        }
+
+        // Réinitialiser les champs de mise
+        for (int i = 0; i < wagerFields.length; i++) {
+            wagerFields[i].setText("");
         }
 
         // Vérifier l'état des mises après réinitialisation
         checkWagers();
     }
+
 
     private void startTimer() {
         final int[] timeRemaining = {60};
@@ -286,8 +317,46 @@ public class FenetreResultat {
             public void actionPerformed(ActionEvent e) {
                 if (timeRemaining[0] <= 0) {
                     timer.stop();
-                    JOptionPane.showMessageDialog(null, "Le temps est écoulé. Fin du jeu !");
-                    System.exit(0);
+
+                    // Vérifier la somme des mises lorsque le temps est écoulé
+                    int totalWagered = 0;
+                    boolean wagerValid = true;
+
+                    try {
+                        // Calculer la somme des mises
+                        for (int i = 0; i < wagerFields.length; i++) {
+                            String text = wagerFields[i].getText().trim();
+                            if (!text.isEmpty()) {
+                                int wager = Integer.parseInt(text);
+                                totalWagered += wager;
+                            }
+                        }
+
+                        // Si la somme des mises est supérieure au solde
+                        if (totalWagered > totalBalance) {
+                            wagerValid = false;
+                        }
+
+                    } catch (NumberFormatException ex) {
+                        wagerValid = false; // En cas d'erreur de format de nombre
+                    }
+
+                    if (!wagerValid) {
+                        JOptionPane.showMessageDialog(null, "Le temps est écoulé et vous avez misé plus que votre solde ! Vous avez perdu.");
+                        System.exit(0); // Terminer le jeu
+                    } else {
+                        // Si la somme des mises est valide, on peut continuer
+                        JOptionPane.showMessageDialog(null, "Le temps est écoulé. Vous pouvez continuer.");
+                        validateWagers(); // Valider les mises pour procéder
+                        questionNumber++;
+                        if (questionNumber <= questions.size()) {
+                            updateQuestion();
+                            resetTimer();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Vous avez terminé le jeu ! Solde final: " + totalBalance);
+                            System.exit(0); // Fin du jeu
+                        }
+                    }
                 } else {
                     timeRemaining[0]--;
                     lblTimer.setText("Temps restant: " + timeRemaining[0] + "s");
@@ -296,6 +365,8 @@ public class FenetreResultat {
         });
         timer.start();
     }
+
+
 
     private void resetTimer() {
         if (timer != null) {
