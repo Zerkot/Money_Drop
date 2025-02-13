@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class QuestionLoader {
-    private static final String FILE_PATH = Paths.get("C:", "projetjava", "Money_Drop", "Money_Drop", "Question_money_flop.json").toString();
+    private static final String FILE_PATH = Paths.get("Question_money_flop.json").toString();
 
     public static List<Question> loadQuestionsFromJSON(String filePath) {
         List<Question> questions = new ArrayList<>();
