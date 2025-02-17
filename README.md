@@ -1,6 +1,5 @@
-# Money_Drop
 
-# Money Drop - Jeu de Quiz Interactif
+
 
 ## 📌 Contexte du projet
 Ce projet est une application de jeu télévisé interactif inspirée de *Money Drop*. Le joueur doit répondre à une série de questions à choix multiples tout en gérant un solde d'argent qu'il peut répartir sur les différentes réponses.
