@@ -73,7 +73,7 @@ git clone https://github.com/Zerkot/MoneyDrop-Quiz.git
 ```
 
 ### ▶️ Exécuter le jeu
-1. Ouvrir le projet dans **IntelliJ IDEA** ou **Eclipse**.
+1. Ouvrir le projet dans **Eclipse**.
 2. Compiler et exécuter la classe principale `Main.java`.
 
 ---
@@ -91,6 +91,6 @@ Les contributions sont les bienvenues !
 
 
 ## 📩 Contact
-📧 Email : lucascorompt@gmail.com 
+📧 Email : lucascorompt@gmail.com
 🐙 GitHub : Zerkot  
 
