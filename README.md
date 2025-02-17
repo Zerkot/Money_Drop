@@ -64,11 +64,12 @@ L'application est développée en **Java** et comprend **deux interfaces graphiq
 ### 📥 Prérequis
 - Java JDK 11 ou supérieur
 - JavaFX installé
+- Git bash 
 
-### 📌 Cloner le projet
+### 📌 Cloner le projet avec Git bash
 ```bash
+cd C:
 git clone https://github.com/Zerkot/MoneyDrop-Quiz.git
-cd MoneyDrop-Quiz
 ```
 
 ### ▶️ Exécuter le jeu
