@@ -67,7 +67,7 @@ L'application est développée en **Java** et comprend **deux interfaces graphiq
 
 ### 📌 Cloner le projet
 ```bash
-git clone https://github.com/votre-utilisateur/MoneyDrop-Quiz.git
+git clone https://github.com/Zerkot/MoneyDrop-Quiz.git
 cd MoneyDrop-Quiz
 ```
 
