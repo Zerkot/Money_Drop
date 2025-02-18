@@ -33,9 +33,12 @@ public class WheelPanel extends JPanel {
     public int startSpin() {
         // Initialiser un angle de départ aléatoire
         angle = (int) (Math.random() * 360);
-
+    	//angle = 22;
         // Calculer la section correspondant à l'angle initial
-        int section = ((angle / 45) % 8);
+        int adjustedAngle = (angle) % 360; // Décaler de 4° parce que y'a un décalage
+        System.out.println(angle);
+        System.out.println(adjustedAngle);
+        int section = (adjustedAngle / 45) % 8;
         valueToDisplay = values[section]; // Valeur correspondante
 
         switch (section) {
@@ -101,6 +104,7 @@ public class WheelPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+        setOpaque(false);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         int centerX = getWidth() / 2;

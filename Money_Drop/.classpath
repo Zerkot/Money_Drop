@@ -6,6 +6,15 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/tktpelov3/Money_Drop/Money_Drop/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Money_Drop/Money_Drop/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Money_Drop/Money_Drop/javafx.base.jar"/>
+	<classpathentry kind="lib" path="C:/Money_Drop/Money_Drop/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="C:/Money_Drop/Money_Drop/javafx.fxml.jar"/>
+	<classpathentry kind="lib" path="C:/Money_Drop/Money_Drop/javafx.graphics.jar"/>
+	<classpathentry kind="lib" path="C:/Money_Drop/Money_Drop/javafx.media.jar"/>
+	<classpathentry kind="lib" path="C:/Money_Drop/Money_Drop/javafx.swing.jar"/>
+	<classpathentry kind="lib" path="C:/Money_Drop/Money_Drop/javafx.web.jar"/>
+	<classpathentry kind="lib" path="C:/Money_Drop/Money_Drop/javafx-swt.jar"/>
+	<classpathentry kind="lib" path="C:/Money_Drop/Money_Drop/flatlaf-3.5.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

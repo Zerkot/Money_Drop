@@ -1,4 +1,4 @@
-import javax.swing.*;
+	import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
@@ -49,27 +49,61 @@ public class FenetreResultat {
         // Initialiser le solde avec la valeur de la roue
         totalBalance = Integer.parseInt(valueFromWheel.replace(" $", "").trim());
 
-        // Fenêtre d'introduction avant de commencer à jouer
+     // Fenêtre d'introduction avant de commencer à jouer
         JFrame introFrame = new JFrame("Introduction");
         introFrame.setBounds(100, 100, 900, 500);
         introFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        introFrame.setVisible(true);
         introFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        introFrame.getContentPane().setLayout(new GridLayout(3, 1));
+        introFrame.getContentPane().setLayout(new GridLayout(4, 1));
+        introFrame.getContentPane().setBackground(new Color(20, 30, 60)); // Bleu foncé
 
         // Titre d'introduction
-        JLabel lblIntroTitle = new JLabel("Etes-vous prêt à commencer à jouer à Money Flop ?", SwingConstants.CENTER);
-        lblIntroTitle.setFont(new Font("Arial", Font.BOLD, 24));
+        JLabel lblIntroTitle = new JLabel("Êtes-vous prêt à commencer à jouer à Money Flop ?", SwingConstants.CENTER);
+        lblIntroTitle.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        lblIntroTitle.setForeground(Color.WHITE);
         introFrame.getContentPane().add(lblIntroTitle);
 
-        // Message avec le solde initial
-        String initialBalance = "Votre solde commence à " + totalBalance + " $";
-        JLabel lblBalanceMessage = new JLabel(initialBalance, SwingConstants.CENTER);
-        lblBalanceMessage.setFont(new Font("Arial", Font.PLAIN, 20));
-        introFrame.getContentPane().add(lblBalanceMessage);
+        // Panel des règles du jeu
+        JPanel reglesPanel = new JPanel();
+        reglesPanel.setBackground(new Color(20, 30, 60));
+        reglesPanel.setLayout(new FlowLayout());
 
-        // Bouton "Commencer"
+        JLabel lblRegles = new JLabel("<html><div style='text-align: left; font-size:16px; color:white;'>"
+                + "<h2 style='color:white;'>Règles du jeu :</h2>"
+                + "1. Le joueur démarre avec un montant défini par la roue de la fortune.<br>"
+                + "2. À chaque question, il doit répartir son solde sur les différentes réponses.<br>"
+                + "3. Si la réponse est correcte, le joueur double la mise correspondante.<br>"
+                + "4. Si la réponse est incorrecte, le joueur perd l'argent misé sur cette option.<br>"
+                + "5. Le but est de finir avec le plus d'argent possible après 10 questions.<br>"
+                + "6. Si le timer atteint 0 avant validation, uniquement ce qui a été misé est compté et ce qui n'a pas été misé est perdu.<br>"
+                + "</div></html>");
+        lblRegles.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        lblRegles.setForeground(Color.WHITE);
+        reglesPanel.add(lblRegles);
+        introFrame.getContentPane().add(reglesPanel);
+
+        // Panel pour afficher le solde initial
+        JPanel balancePanel = new JPanel();
+        balancePanel.setBackground(new Color(20, 30, 60));
+
+        JLabel lblBalanceMessage = new JLabel("Votre solde commence à " + totalBalance + " $", SwingConstants.CENTER);
+        lblBalanceMessage.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblBalanceMessage.setForeground(Color.WHITE);
+        balancePanel.add(lblBalanceMessage);
+
+        introFrame.getContentPane().add(balancePanel);
+
+        // Panel du bouton "Commencer"
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(20, 30, 60));
+
         JButton btnStart = new JButton("Commencer");
+        btnStart.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        btnStart.setBackground(new Color(50, 100, 200)); // Bleu clair
+        btnStart.setForeground(Color.WHITE);
+        btnStart.setFocusPainted(false);
+        btnStart.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 30));
+        btnStart.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,97 +112,105 @@ public class FenetreResultat {
                 openQuestionWindow();
             }
         });
-        introFrame.getContentPane().add(btnStart);
+        buttonPanel.add(btnStart);
+        introFrame.getContentPane().add(buttonPanel);
 
         introFrame.setVisible(true);
     }
 
     private void openQuestionWindow() {
-        // Fenêtre pour les questions
-        JFrame frameResult = new JFrame("Money Flop");
-        frameResult.setBounds(100, 100, 600, 500);
-        frameResult.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frameResult.setVisible(true);
-        frameResult.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frameResult.getContentPane().setLayout(new GridLayout(8, 1));
-        
-        if (questions != null && !questions.isEmpty()) {
-            // Continue avec l'accès à la première question
-            Question question = questions.get(0);
-            // Affichage ou traitement de la question
-        } else {
-            // Gérer le cas où il n'y a pas de questions chargées
-            System.out.println("Aucune question disponible.");
-        }
+    	// Fenêtre pour les questions
+    	JFrame frameResult = new JFrame("Money Drop");
+    	frameResult.setBounds(100, 100, 600, 500);
+    	frameResult.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    	frameResult.setVisible(true);
+    	frameResult.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	frameResult.getContentPane().setLayout(new GridLayout(8, 1));
 
-        
-        // Titre de la question
-        lblTitle = new JLabel("Question N°1" , SwingConstants.CENTER);
-        lblTitle.setFont(new Font("Arial", Font.BOLD, 24));
-        frameResult.getContentPane().add(lblTitle);
+    	// Appliquer un thème bleu foncé et clair
+    	frameResult.getContentPane().setBackground(new Color(0, 51, 102)); // Bleu foncé
 
-        // Question
-        lblQuestion = new JLabel(questions.get(currentQuestionIndex).getQuestion(), SwingConstants.CENTER);
-        lblQuestion.setFont(new Font("Arial", Font.PLAIN, 18));
-        frameResult.getContentPane().add(lblQuestion);
+    	// Titre de la question
+    	lblTitle = new JLabel("Question N°1", SwingConstants.CENTER);
+    	lblTitle.setFont(new Font("Arial", Font.BOLD, 24));
+    	lblTitle.setForeground(Color.WHITE); // Texte en blanc
+    	frameResult.getContentPane().add(lblTitle);
 
-        // Réponses possibles (horizontales avec champs de mise)
-        JPanel answersPanel = new JPanel();
-        answersPanel.setLayout(new GridLayout(2, 4, 10, 10));
+    	// Question
+    	lblQuestion = new JLabel(questions.get(currentQuestionIndex).getQuestion(), SwingConstants.CENTER);
+    	lblQuestion.setFont(new Font("Arial", Font.PLAIN, 18));
+    	lblQuestion.setForeground(Color.WHITE); // Texte en blanc
+    	frameResult.getContentPane().add(lblQuestion);
 
-        wagerFields = new JTextField[4];
-        String[] propositions = questions.get(currentQuestionIndex).getPropositions();
-        correctAnswerIndex = getCorrectAnswerIndex(propositions, questions.get(currentQuestionIndex).getCorrectAnswer());
+    	// Réponses possibles (horizontales avec champs de mise)
+    	JPanel answersPanel = new JPanel();
+    	answersPanel.setLayout(new GridLayout(2, 4, 10, 10));
+    	answersPanel.setBackground(new Color(0, 51, 102)); // Même bleu foncé
 
-     // Initialiser le tableau des labels de réponses
-        answerLabels = new JLabel[4];
+    	wagerFields = new JTextField[4];
+    	String[] propositions = questions.get(currentQuestionIndex).getPropositions();
+    	correctAnswerIndex = getCorrectAnswerIndex(propositions, questions.get(currentQuestionIndex).getCorrectAnswer());
 
-        for (int i = 0; i < 4; i++) {
-            answerLabels[i] = new JLabel(propositions[i], SwingConstants.CENTER);
-            wagerFields[i] = new JTextField();
+    	// Initialiser le tableau des labels de réponses
+    	answerLabels = new JLabel[4];
 
-            // Ajout du DocumentListener pour surveiller les mises
-            wagerFields[i].getDocument().addDocumentListener(new DocumentListener() {
-                @Override
-                public void insertUpdate(DocumentEvent e) {
-                    checkWagers();
-                }
+    	for (int i = 0; i < 4; i++) {
+    	    answerLabels[i] = new JLabel(propositions[i], SwingConstants.CENTER);
+    	    answerLabels[i].setFont(new Font("Arial", Font.BOLD, 16));
+    	    answerLabels[i].setForeground(Color.WHITE); // Texte des réponses en blanc
+    	    wagerFields[i] = new JTextField();
+    	    wagerFields[i].setBackground(new Color(255, 255, 255)); // Champs de mise en blanc
+    	    wagerFields[i].setForeground(new Color(0, 51, 102)); // Texte des mises en bleu foncé
 
-                @Override
-                public void removeUpdate(DocumentEvent e) {
-                    checkWagers();
-                }
+    	    // Ajout du DocumentListener pour surveiller les mises
+    	    wagerFields[i].getDocument().addDocumentListener(new DocumentListener() {
+    	        @Override
+    	        public void insertUpdate(DocumentEvent e) {
+    	            checkWagers();
+    	        }
 
-                @Override
-                public void changedUpdate(DocumentEvent e) {
-                    checkWagers();
-                }
-            });
+    	        @Override
+    	        public void removeUpdate(DocumentEvent e) {
+    	            checkWagers();
+    	        }
 
-            answersPanel.add(answerLabels[i]);
-            answersPanel.add(wagerFields[i]);
-        }
-        frameResult.getContentPane().add(answersPanel);
+    	        @Override
+    	        public void changedUpdate(DocumentEvent e) {
+    	            checkWagers();
+    	        }
+    	    });
 
-        // Solde
-        lblBalance = new JLabel("Solde: " + totalBalance + " $", SwingConstants.CENTER);
-        lblBalance.setFont(new Font("Arial", Font.PLAIN, 18));
-        frameResult.getContentPane().add(lblBalance);
+    	    answersPanel.add(answerLabels[i]);
+    	    answersPanel.add(wagerFields[i]);
+    	}
+    	frameResult.getContentPane().add(answersPanel);
 
-        // Timer
-        lblTimer = new JLabel("Temps restant: 60s", SwingConstants.CENTER);
-        frameResult.getContentPane().add(lblTimer);
+    	// Solde
+    	lblBalance = new JLabel("Solde: " + totalBalance + " $", SwingConstants.CENTER);
+    	lblBalance.setFont(new Font("Arial", Font.PLAIN, 18));
+    	lblBalance.setForeground(Color.WHITE); // Texte en blanc
+    	frameResult.getContentPane().add(lblBalance);
 
-        // Bouton de validation
-        btnValidate = new JButton("Valider");
-        btnValidate.setEnabled(false); // Désactivé par défaut
-        frameResult.getContentPane().add(btnValidate);
+    	// Timer
+    	lblTimer = new JLabel("Temps restant: 60s", SwingConstants.CENTER);
+    	lblTimer.setFont(new Font("Arial", Font.PLAIN, 18));
+    	lblTimer.setForeground(Color.WHITE); // Texte en blanc
+    	frameResult.getContentPane().add(lblTimer);
+
+    	// Bouton de validation
+    	btnValidate = new JButton("Valider");
+    	btnValidate.setEnabled(false); // Désactivé par défaut
+    	btnValidate.setBackground(new Color(0, 102, 204)); // Bouton bleu clair
+    	btnValidate.setForeground(Color.WHITE); // Texte du bouton en blanc
+    	frameResult.getContentPane().add(btnValidate);
+
 
         // Action sur le bouton de validation
         btnValidate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Logique pour valider la réponse et mettre à jour le solde
+            	timer.stop();
                 validateWagers();
                 questionNumber++;
                 System.out.println(questionNumber);
@@ -229,10 +271,10 @@ public class FenetreResultat {
         int newBalance = wagerOnCorrectAnswer * 2;
 
         if (wagerOnCorrectAnswer == 0) {
-            JOptionPane.showMessageDialog(null, "Vous avez perdu ! Vous n'avez rien misé sur la bonne réponse.");
+            JOptionPane.showMessageDialog(null, "Vous avez perdu ! Vous n'avez rien misé sur la bonne réponse. \n \n La bonne réponse était: " + questions.get(currentQuestionIndex).getCorrectAnswer() + "\n \n Anecdote: " + questions.get(currentQuestionIndex).getAnecdote());
             totalBalance = 0;
         } else {
-            JOptionPane.showMessageDialog(null, "Bravo ! La bonne réponse était : " + questions.get(currentQuestionIndex).getCorrectAnswer() + " Votre mise sur la bonne réponse a été doublée : " + wagerOnCorrectAnswer + " x 2 = " + newBalance + " $");
+            JOptionPane.showMessageDialog(null, "Bravo ! La bonne réponse était : " + questions.get(currentQuestionIndex).getCorrectAnswer() + " Votre mise sur la bonne réponse a été doublée : " + wagerOnCorrectAnswer + " x 2 = " + newBalance + " $" + "\n \n Anecdote: " + questions.get(currentQuestionIndex).getAnecdote());
             totalBalance = newBalance;
         }
 
@@ -242,7 +284,7 @@ public class FenetreResultat {
             System.exit(0);
         }
 
-        if (questionNumber <= 10) { // Limite à 10 questions
+        if (questionNumber <= 9) { // Limite à 10 questions
             updateQuestion();
             resetTimer();
         } else {
