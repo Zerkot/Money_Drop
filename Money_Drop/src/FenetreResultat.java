@@ -278,7 +278,7 @@ public FenetreResultat(String valueFromWheel) {
         } else {
             JOptionPane.showMessageDialog(null, "Vous avez terminé le jeu après 10 questions ! Solde final: " + totalBalance + " $");
             frameResult.dispose();             
-            new FenetreGif().FenetreLose();
+            new FenetreGif().FenetreWin();
         }
 
         
