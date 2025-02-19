@@ -44,7 +44,7 @@ public class WheelPanel extends JPanel {
 
     private boolean isValidAngle(int angle) {
         for (int i = 0; i < 360; i += 45) {
-            if ((angle >= i - 8 && angle <= i + 8) || (angle >= i + 37 && angle <= i + 45)) {
+            if ((angle >= i - 15 && angle <= i + 15) || (angle >= i + 30 && angle <= i + 45)) {
                 return false;
             }
         }
