@@ -19,7 +19,7 @@ L'application est développée en **Java** et comprend **deux interfaces graphiq
 
 ## 🛠️ Technologies utilisées
 - **Langage** : Java
-- **Frameworks** : JavaFX (pour l'interface graphique)
+- **Frameworks** : swing (pour l'interface graphique)
 - **Outils** : IntelliJ IDEA, Eclipse
 - **Système de gestion de version** : Git/GitHub
 
@@ -45,8 +45,7 @@ L'application est développée en **Java** et comprend **deux interfaces graphiq
 
 ### 3️⃣ Fin du jeu
 ✔️ Affichage du solde final du joueur.  
-✔️ Indication des gains ou pertes totaux.  
-✔️ Option pour rejouer ou quitter l'application.  
+✔️ Message de félicitation.
 
 ---
 
@@ -63,7 +62,6 @@ L'application est développée en **Java** et comprend **deux interfaces graphiq
 ## 🖥️ Installation et exécution
 ### 📥 Prérequis
 - Java JDK 11 ou supérieur
-- JavaFX installé
 - Git bash 
 
 ### 📌 Cloner le projet avec Git bash
@@ -74,7 +72,7 @@ git clone https://github.com/Zerkot/MoneyDrop-Quiz.git
 
 ### ▶️ Exécuter le jeu
 1. Ouvrir le projet dans **Eclipse**.
-2. Compiler et exécuter la classe principale `Main.java`.
+2. Compiler et exécuter .
 
 ---
 
