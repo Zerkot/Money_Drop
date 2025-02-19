@@ -58,7 +58,7 @@ public class WheelPanel extends JPanel {
         //angle = (int) (Math.random() * 360);
     	//angle = 22;
         // Calculer la section correspondant à l'angle initial
-        int adjustedAngle = (angle) % 360; // Décaler de 4° parce que y'a un décalage
+        int adjustedAngle = (angle) % 360;
         System.out.println(angle);
         System.out.println(adjustedAngle);
         int section = (adjustedAngle / 45) % 8;
