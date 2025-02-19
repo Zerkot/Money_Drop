@@ -1,4 +1,3 @@
-import java.nio.file.Paths;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +6,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class QuestionLoader {
-    private static final String FILE_PATH = Paths.get("Question_money_flop.json").toString();
+    //private static final String FILE_PATH = Paths.get("Question_money_flop.json").toString();
 
     public static List<Question> loadQuestionsFromJSON(String filePath) {
         List<Question> questions = new ArrayList<>();
@@ -66,9 +65,4 @@ public class QuestionLoader {
 
         return questions;
     }
-
-    //public static void main(String[] args) {
-        
-      //  }
-    //}
 }

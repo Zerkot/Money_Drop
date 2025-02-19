@@ -1,7 +1,4 @@
 import javax.swing.*;
-
-import com.formdev.flatlaf.FlatLightLaf;
-
 import java.awt.*;
 
 public class Fenetre {
