@@ -5,14 +5,31 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.*;
 
 public class Fenetre {
-
+	
+	private static String pseudo;
     JFrame frame;
     private JTextField textField;
 
     public Fenetre() {
         initialize();
     }
+    
+ // Getter et setter pour le pseudo
 
+    public static String getPseudo() {
+
+        return pseudo;
+
+    }
+
+
+
+    public static void setPseudo(String pseudo) {
+
+        Fenetre.pseudo = pseudo;
+
+    }
+    
     private void initialize() {
         frame = new JFrame();
         frame.setBounds(100, 100, 1920, 1080);
@@ -80,10 +97,11 @@ public class Fenetre {
 
         // Action sur le bouton
         btnNewButton.addActionListener(e -> {
-            String pseudo = textField.getText().trim();
-            if (pseudo.isEmpty()) {
+            String enteredPseudo = textField.getText().trim();
+            if (enteredPseudo.isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "Veuillez entrer un pseudo avant de lancer la roue !", "Erreur", JOptionPane.ERROR_MESSAGE);
             } else {
+            	Fenetre.setPseudo(enteredPseudo);
                 wheelPanel.startSpin();
                 btnNewButton.setEnabled(false);
             }

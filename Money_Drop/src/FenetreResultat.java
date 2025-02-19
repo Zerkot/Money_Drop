@@ -13,9 +13,11 @@ public class FenetreResultat {
     private int questionNumber = 1;
     private int totalBalance; // Solde initialisé via le constructeur
     private int correctAnswerIndex; // Index de la bonne réponse, à calculer en fonction des propositions
+    private int totalWagered = 0;
     private Timer timer;
     private JLabel lblQuestion;
     private JLabel lblBalance;
+    private JLabel lblBalanceRes;
     private JTextField[] wagerFields; // Champs pour les mises
     private JButton btnValidate;
     private JLabel lblTimer;
@@ -26,48 +28,50 @@ public class FenetreResultat {
     private JLabel[] answerLabels; // Ajouter ceci en tant qu'attribut de la classe
     
     public FenetreResultat(String valueFromWheel) {
+    	
         // Charger les questions depuis le fichier JSON
         questions = QuestionLoader.loadQuestionsFromJSON("Question_money_flop.json");
         
-     // Initialiser la liste des indices
+        // Initialiser la liste des indices
         for (int i = 0; i < questions.size(); i++) {
             availableIndices.add(i);
         }
-        
         // Mélanger la liste pour l'aléatoire
         Collections.shuffle(availableIndices);
-        //System.out.println(availableIndices);
+        
         // Sélectionner le premier index aléatoirement
         currentQuestionIndex = availableIndices.poll();
-        //System.out.println(currentQuestionIndex);
-        // Vérifier si les questions sont bien chargées
-//        System.out.println("Questions chargées : ");
-//        for (Question q : questions) {
-//            System.out.println(q);
-//        }
         
         // Initialiser le solde avec la valeur de la roue
         totalBalance = Integer.parseInt(valueFromWheel.replace(" $", "").trim());
-
-     // Fenêtre d'introduction avant de commencer à jouer
+        
+        // Fenêtre d'introduction avant de commencer à jouer
         JFrame introFrame = new JFrame("Introduction");
         introFrame.setBounds(100, 100, 900, 500);
         introFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         introFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        introFrame.getContentPane().setLayout(new GridLayout(4, 1));
+        introFrame.getContentPane().setLayout(new BorderLayout());
         introFrame.getContentPane().setBackground(new Color(20, 30, 60)); // Bleu foncé
-
+        
+        // Panel principal avec BoxLayout pour réduire la taille
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBackground(new Color(20, 30, 60));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(50, 100, 50, 100));
+        
         // Titre d'introduction
-        JLabel lblIntroTitle = new JLabel("Êtes-vous prêt à commencer à jouer à Money Flop ?", SwingConstants.CENTER);
+        String pseudo = Fenetre.getPseudo();  // Récupère le pseudo stocké
+        JLabel lblIntroTitle = new JLabel("Bienvenu " + pseudo + ", es-tu prêt à commencer à jouer à Money Flop ?", SwingConstants.CENTER);
         lblIntroTitle.setFont(new Font("Segoe UI", Font.BOLD, 28));
         lblIntroTitle.setForeground(Color.WHITE);
-        introFrame.getContentPane().add(lblIntroTitle);
-
+        lblIntroTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(lblIntroTitle);
+        
         // Panel des règles du jeu
         JPanel reglesPanel = new JPanel();
         reglesPanel.setBackground(new Color(20, 30, 60));
         reglesPanel.setLayout(new FlowLayout());
-
+        mainPanel.add(reglesPanel);
         JLabel lblRegles = new JLabel("<html><div style='text-align: left; font-size:16px; color:white;'>"
                 + "<h2 style='color:white;'>Règles du jeu :</h2>"
                 + "1. Le joueur démarre avec un montant défini par la roue de la fortune.<br>"
@@ -80,23 +84,29 @@ public class FenetreResultat {
         lblRegles.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         lblRegles.setForeground(Color.WHITE);
         reglesPanel.add(lblRegles);
-        introFrame.getContentPane().add(reglesPanel);
-
+        mainPanel.add(reglesPanel);
+        
         // Panel pour afficher le solde initial
         JPanel balancePanel = new JPanel();
         balancePanel.setBackground(new Color(20, 30, 60));
-
         JLabel lblBalanceMessage = new JLabel("Votre solde commence à " + totalBalance + " $", SwingConstants.CENTER);
         lblBalanceMessage.setFont(new Font("Segoe UI", Font.BOLD, 22));
         lblBalanceMessage.setForeground(Color.WHITE);
         balancePanel.add(lblBalanceMessage);
-
-        introFrame.getContentPane().add(balancePanel);
-
+        mainPanel.add(balancePanel);
+        
+        // Panel pour l'image
+        JPanel imagePanel = new JPanel();
+        imagePanel.setBackground(new Color(20, 30, 60));
+        ImageIcon gameIcon = new ImageIcon(new ImageIcon("money_flop.png").getImage().getScaledInstance(500, 250, Image.SCALE_SMOOTH)); // Redimensionner l'image
+        //ImageIcon gameIcon = new ImageIcon("tktpelo.gif");
+        JLabel lblImage = new JLabel(gameIcon);
+        imagePanel.add(lblImage);
+        mainPanel.add(imagePanel);
+        
         // Panel du bouton "Commencer"
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(new Color(20, 30, 60));
-
         JButton btnStart = new JButton("Commencer");
         btnStart.setFont(new Font("Segoe UI", Font.BOLD, 20));
         btnStart.setBackground(new Color(50, 100, 200)); // Bleu clair
@@ -104,6 +114,7 @@ public class FenetreResultat {
         btnStart.setFocusPainted(false);
         btnStart.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 30));
         btnStart.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -113,8 +124,8 @@ public class FenetreResultat {
             }
         });
         buttonPanel.add(btnStart);
-        introFrame.getContentPane().add(buttonPanel);
-
+        mainPanel.add(buttonPanel);
+        introFrame.getContentPane().add(mainPanel, BorderLayout.CENTER);
         introFrame.setVisible(true);
     }
 
@@ -190,6 +201,13 @@ public class FenetreResultat {
     	lblBalance.setFont(new Font("Arial", Font.PLAIN, 18));
     	lblBalance.setForeground(Color.WHITE); // Texte en blanc
     	frameResult.getContentPane().add(lblBalance);
+    	
+    	// Solde restante
+    	//lblBalanceRes = new JLabel("Solde: " + (totalBalance - totalWagered) + " $", SwingConstants.CENTER);
+    	lblBalanceRes = new JLabel("Solde restante: " + (totalBalance - 0) + " $", SwingConstants.CENTER);
+    	lblBalanceRes.setFont(new Font("Arial", Font.PLAIN, 18));
+    	lblBalanceRes.setForeground(Color.WHITE); // Texte en blanc
+    	frameResult.getContentPane().add(lblBalanceRes);
 
     	// Timer
     	lblTimer = new JLabel("Temps restant: 60s", SwingConstants.CENTER);
@@ -288,7 +306,7 @@ public class FenetreResultat {
             updateQuestion();
             resetTimer();
         } else {
-            JOptionPane.showMessageDialog(null, "Vous avez terminé le jeu après 10 questions ! Solde final: " + totalBalance);
+            JOptionPane.showMessageDialog(null, "Vous avez terminé le jeu après 10 questions ! Solde final: " + totalBalance + " $");
             System.exit(0);
         }
 
@@ -316,6 +334,7 @@ public class FenetreResultat {
 
         // Activer le bouton seulement si la somme des mises est égale au solde
         btnValidate.setEnabled(allFieldsValid && totalWagered == totalBalance);
+        lblBalanceRes.setText("Solde restante: " + (totalBalance - totalWagered) + " $");
     }
     
     private void updateQuestion() {
@@ -352,7 +371,7 @@ public class FenetreResultat {
 
 
     private void startTimer() {
-        final int[] timeRemaining = {60};
+        final int[] timeRemaining = {90};
 
         timer = new Timer(1000, new ActionListener() {
             @Override

@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class WheelPanel extends JPanel {
     private Timer timer;
@@ -29,10 +30,32 @@ public class WheelPanel extends JPanel {
             }
         });
     }
+    
+    private int generateValidAngle() {
+        Random random = new Random();
+        int angle;
+        while (true) {
+            angle = random.nextInt(361); // Génère un angle entre 0 et 360
+            if (isValidAngle(angle)) {
+                return angle;
+            }
+        }
+    }
+
+    private boolean isValidAngle(int angle) {
+        for (int i = 0; i < 360; i += 45) {
+            if ((angle >= i - 8 && angle <= i + 8) || (angle >= i + 37 && angle <= i + 45)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public int startSpin() {
         // Initialiser un angle de départ aléatoire
-        angle = (int) (Math.random() * 360);
+    	angle = generateValidAngle();
+        //angle = (int) (Math.random() * 360);
     	//angle = 22;
         // Calculer la section correspondant à l'angle initial
         int adjustedAngle = (angle) % 360; // Décaler de 4° parce que y'a un décalage
@@ -70,6 +93,7 @@ public class WheelPanel extends JPanel {
             valueToDisplay = "Angle hors des bornes";
             break;
     }
+        
         
         // Lancer la rotation
         startTime = System.currentTimeMillis(); // Marquer l'heure de début
