@@ -34,7 +34,7 @@ public class Fenetre {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Charger l'image de fond
-        BackgroundPanel backgroundPanel = new BackgroundPanel("backgroundfenetre.jpg");
+        BackgroundPanel backgroundPanel = new BackgroundPanel("ressources/backgroundfenetre.jpg");
         backgroundPanel.setLayout(new GridBagLayout()); // GridBagLayout pour un meilleur contrôle
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;

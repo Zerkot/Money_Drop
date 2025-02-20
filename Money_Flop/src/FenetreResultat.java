@@ -25,7 +25,7 @@ public class FenetreResultat {
 public FenetreResultat(String valueFromWheel) {
     	
         // Charger les questions depuis le fichier JSON
-        questions = QuestionLoader.loadQuestionsFromJSON("Question_money_flop.json");
+        questions = QuestionLoader.loadQuestionsFromJSON("ressources/Question_money_flop.json");
         
         // Initialiser la liste des indices
         for (int i = 0; i < questions.size(); i++) {
@@ -93,7 +93,7 @@ public FenetreResultat(String valueFromWheel) {
         // Panel pour l'image
         JPanel imagePanel = new JPanel();
         imagePanel.setBackground(new Color(20, 30, 60));
-        ImageIcon gameIcon = new ImageIcon(new ImageIcon("money_flop.png").getImage().getScaledInstance(500, 250, Image.SCALE_SMOOTH)); // Redimensionner l'image
+        ImageIcon gameIcon = new ImageIcon(new ImageIcon("ressources/money_flop.png").getImage().getScaledInstance(500, 250, Image.SCALE_SMOOTH)); // Redimensionner l'image
         //ImageIcon gameIcon = new ImageIcon("tktpelo.gif");
         JLabel lblImage = new JLabel(gameIcon);
         imagePanel.add(lblImage);
@@ -268,8 +268,9 @@ public FenetreResultat(String valueFromWheel) {
         // Vérifier si le joueur peut continuer
         if (totalBalance == 0) {
             JOptionPane.showMessageDialog(null, "Vous avez perdu tout votre solde. Fin du jeu !");
-            frameResult.dispose();             
+            frameResult.dispose();
             new FenetreGif().FenetreLose();
+            timerManager.stopTimer();
         }
 
         if (questionNumber <= 9) { // Limite à 10 questions
@@ -277,10 +278,11 @@ public FenetreResultat(String valueFromWheel) {
             timerManager.resetTimer(90);
         } else {
             JOptionPane.showMessageDialog(null, "Vous avez terminé le jeu après 10 questions ! Solde final: " + totalBalance + " $");
-            frameResult.dispose();             
+            frameResult.dispose();  
             new FenetreGif().FenetreWin();
+            timerManager.stopTimer();
         }
-
+        
         
     }
 

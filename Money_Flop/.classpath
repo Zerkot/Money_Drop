@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/tktpeloo/Money_Drop/flatlaf-3.5.4.jar"/>
-	<classpathentry kind="lib" path="C:/tktpeloo/Money_Drop/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="F:/BUT/Java/Money_Drop/Money_Flop/lib/flatlaf-3.5.4.jar"/>
+	<classpathentry kind="lib" path="F:/BUT/Java/Money_Drop/Money_Flop/lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
