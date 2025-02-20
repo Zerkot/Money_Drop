@@ -58,8 +58,6 @@ public class WheelPanel extends JPanel {
     	//angle = 22;
         // Calculer la section correspondant à l'angle initial
         int adjustedAngle = (angle) % 360;
-        System.out.println(angle);
-        System.out.println(adjustedAngle);
         int section = (adjustedAngle / 45) % 8;
         valueToDisplay = values[section]; // Valeur correspondante
 

@@ -68,6 +68,7 @@ public class Fenetre {
         textField.setHorizontalAlignment(JTextField.CENTER);
         textFieldPanel.add(textField);
         backgroundPanel.add(textFieldPanel, gbc);
+        
 
         // Panel pour centrer le bouton
         gbc.gridy = 3;
@@ -95,6 +96,8 @@ public class Fenetre {
         // Action sur le bouton
         btnNewButton.addActionListener(e -> {
             String enteredPseudo = textField.getText().trim();
+            btnNewButton.setOpaque(false);
+            textField.setEnabled(false);
             if (enteredPseudo.isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "Veuillez entrer un pseudo avant de lancer la roue !", "Erreur", JOptionPane.ERROR_MESSAGE);
             } else {
