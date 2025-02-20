@@ -85,7 +85,9 @@ Les contributions sont les bienvenues !
 5. Ouvrez une **Pull Request** ! 🚀
 
 ---
+## Lien diagramme de classe UML 
 
+Lien : git remote set-url origin git@github.com:Zerkot/Money_Drop.git
 
 
 ## 📩 Contact
