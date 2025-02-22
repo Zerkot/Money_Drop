@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 public class FenetreGif {
 
     public void FenetreLose() {
+    	
         JFrame LoseFrame = new JFrame("Lose");
         LoseFrame.setBounds(100, 100, 600, 500);
         LoseFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -79,7 +80,7 @@ public class FenetreGif {
         quitButton.setForeground(Color.WHITE);
         quitButton.setFocusPainted(false);
         quitButton.setBorderPainted(false);
-
+        
         replayButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LoseFrame.dispose(); // Ferme la fenêtre actuelle
