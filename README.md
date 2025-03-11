@@ -91,6 +91,6 @@ Lien : https://lucid.app/lucidchart/69a1a1b5-9698-451f-928f-24ea8305e941/edit?vi
 
 
 ## 📩 Contact
-📧 Email : lucascorompt@gmail.com
+📧 Email : coromptlucaspro@gmail.com
 🐙 GitHub : Zerkot  
 
